@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane prefHeight="720.0" prefWidth="720.0" style="-fx-background-color: #fffafa;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <AnchorPane>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+               <children>
+                  <VBox prefHeight="780.0" prefWidth="170.0" spacing="60.0" style="-fx-background-color: #d2f8d2;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="170.0" />
+                        <VBox prefHeight="666.0" prefWidth="170.0" spacing="13.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="studentBTN" mnemonicParsing="false" prefHeight="31.0" prefWidth="133.0" style="-fx-background-color: #d2f8d2;" text="students">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="60.0" prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="departmentBTN" mnemonicParsing="false" prefHeight="31.0" prefWidth="133.0" style="-fx-background-color: #d2f8d2;" text="departments">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="156.0" prefHeight="60.0" prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="coursesBTN" mnemonicParsing="false" prefHeight="31.0" prefWidth="133.0" style="-fx-background-color: #d2f8d2;" text="courses">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="229.0" prefHeight="60.0" prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="gradesBTN" mnemonicParsing="false" prefHeight="31.0" prefWidth="133.0" style="-fx-background-color: #d2f8d2;" text="grades">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="302.0" prefHeight="60.0" prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="professourBTN" mnemonicParsing="false" prefHeight="31.0" prefWidth="133.0" style="-fx-background-color: #d2f8d2;" text="professour">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="375.0" prefHeight="60.0" prefWidth="200.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="133.0" style="-fx-background-color: #d2f8d2;">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="448.0" prefHeight="60.0" prefWidth="200.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </left>
+         <center>
+            <AnchorPane fx:id="gbaLabel" prefHeight="780.0" prefWidth="635.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-2.0" layoutY="29.0" prefHeight="99.0" prefWidth="307.0" text="grades">
+                     <font>
+                        <Font name="System Italic" size="45.0" />
+                     </font>
+                  </Label>
+                  <GridPane layoutX="127.0" layoutY="360.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Button fx:id="insertBTN" mnemonicParsing="false" text="insert" />
+                        <Button fx:id="updateBTN" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="update" GridPane.columnIndex="1" />
+                        <Button fx:id="deleteBTN" layoutX="160.0" layoutY="10.0" mnemonicParsing="false" text="delete" GridPane.columnIndex="2" />
+                     </children>
+                  </GridPane>
+                  <TextField fx:id="student_ID_TF" layoutX="141.0" layoutY="158.0" prefHeight="31.0" prefWidth="206.0" />
+                  <Label layoutX="26.0" layoutY="158.0" text="Student_ID" />
+                  <Label layoutX="30.0" layoutY="220.0" text="course_ID" />
+                  <TextField fx:id="courseIdTF" layoutX="141.0" layoutY="215.0" prefHeight="31.0" prefWidth="208.0" />
+                  <Label fx:id="ll1" layoutX="32.0" layoutY="398.0" prefHeight="44.0" prefWidth="566.0" />
+                  <Label layoutX="177.0" layoutY="493.0" prefHeight="31.0" prefWidth="303.0" />
+                  <Button fx:id="reportbtn" layoutX="392.0" layoutY="158.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="141.0" text="Student Report" />
+                  <Button fx:id="reportbtn11" layoutX="391.0" layoutY="215.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="143.0" text="Course Report" />
+                  <TextField fx:id="ScoreTF" layoutX="141.0" layoutY="311.0" prefHeight="31.0" prefWidth="208.0" />
+                  <DatePicker fx:id="eDateTF" layoutX="141.0" layoutY="264.0" prefHeight="31.0" prefWidth="210.0" />
+                  <Label layoutX="34.0" layoutY="269.0" text="Enroll date" />
+                  <Label layoutX="34.0" layoutY="316.0" text="Student Score" />
+                  <ScrollPane layoutX="14.0" layoutY="462.0" prefHeight="286.0" prefWidth="579.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="287.0" prefWidth="577.0">
+                           <children>
+                              <TableView fx:id="tG" prefHeight="286.0" prefWidth="575.0">
+                                <columns>
+                                  <TableColumn fx:id="C1" prefWidth="114.0" text="Course ID" />
+                                  <TableColumn fx:id="C2" prefWidth="124.0" text="Student ID" />
+                                    <TableColumn fx:id="C3" prefWidth="143.0" text="Student Grade" />
+                                    <TableColumn fx:id="C4" prefWidth="177.0" text="Enroll Date" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
