@@ -1,0 +1,208 @@
+
+
+ 
+
+
+CREATE TABLE COURSES
+(
+  COURSE_ID      NUMBER,
+  COURSE_NAME    VARCHAR2(100 BYTE)             NOT NULL,
+  DESCRIPTION    VARCHAR2(4000 BYTE),
+  MAX_GRADE      NUMBER                         NOT NULL,
+  DEPARTMENT_ID  NUMBER                         NOT NULL,
+  DURATION       VARCHAR2(100 BYTE)
+)
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+NOPARALLEL
+MONITORING;
+
+
+CREATE TABLE DEPARTMENTS
+(
+  DEPARTMENT_ID    NUMBER,
+  DEPARTMENT_NAME  VARCHAR2(50 BYTE)            NOT NULL
+)
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+NOPARALLEL
+MONITORING;
+
+
+CREATE TABLE GRADES
+(
+  COURSE_ID             NUMBER,
+  STUDENT_ID            NUMBER,
+  STUDENT_SCORED_GRADE  NUMBER,
+  ENROLL_DATE           DATE                    NOT NULL
+)
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+NOPARALLEL
+MONITORING;
+
+
+CREATE TABLE STUDENTS
+(
+  STUDENT_ID     NUMBER,
+  STUDENT_FNAME  VARCHAR2(50 BYTE)              NOT NULL,
+  STUDENT_LNAME  VARCHAR2(50 BYTE)              NOT NULL,
+  EMAIL          VARCHAR2(50 BYTE),
+  DEPARTMENT_ID  NUMBER                         NOT NULL
+)
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+NOPARALLEL
+MONITORING;
+
+
+CREATE UNIQUE INDEX PK_GRADE ON GRADES
+(COURSE_ID, STUDENT_ID, ENROLL_DATE)
+LOGGING
+NOPARALLEL;
+
+
+
+CREATE OR REPLACE PROCEDURE UPDATE_STUDENT (
+    p_student_id IN NUMBER,
+    p_student_fname IN VARCHAR2,
+    p_student_lname IN VARCHAR2,
+    p_email IN VARCHAR2,
+    p_department_id IN NUMBER
+) IS
+BEGIN
+
+    UPDATE CASE.STUDENTS
+    SET    STUDENT_FNAME = p_student_fname,
+           STUDENT_LNAME = p_student_lname,
+           EMAIL = p_email,
+           DEPARTMENT_ID = p_department_id
+    WHERE  STUDENT_ID = p_student_id;
+
+    COMMIT;
+
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+END UPDATE_STUDENT;
+
+SHOW ERRORS;
+
+
+
+CREATE OR REPLACE FUNCTION calculate_course_gba(
+    v_course_id IN NUMBER
+) RETURN NUMBER
+AS
+    v_avg_score NUMBER := 0;
+    v_avg_max_grade NUMBER := 0;
+    v_course_gba NUMBER;
+BEGIN
+ 
+    SELECT 
+        NVL(AVG(g.student_scored_grade), 0),
+        NVL(AVG(c.max_grade), 0)
+    INTO v_avg_score, v_avg_max_grade
+    FROM grades g
+    JOIN courses c ON g.course_id = c.course_id
+    WHERE g.course_id = v_course_id;
+
+    IF v_avg_max_grade > 0 THEN
+        v_course_gba := (v_avg_score / v_avg_max_grade) * 4.0;
+    ELSE
+        v_course_gba := NULL;
+    END IF;
+
+    DBMS_OUTPUT.PUT_LINE('Course GBA calculated successfully.');
+
+    RETURN v_course_gba;
+END calculate_course_gba;
+/
+
+SHOW ERRORS;
+
+
+
+CREATE OR REPLACE FUNCTION caseGBA(
+    vStudentId IN NUMBER
+) RETURN NUMBER
+AS
+    vTotalScore NUMBER := 0;
+    vTotalMaxGrade NUMBER := 0;
+    vGPA NUMBER;
+BEGIN
+    SELECT 
+        NVL(SUM(g.student_scored_grade), 0),
+        NVL(SUM(c.max_grade), 0)
+    INTO vTotalScore, vTotalMaxGrade
+    FROM grades g
+    JOIN courses c ON g.course_id = c.course_id
+    WHERE g.student_id = vStudentId;
+    vGPA := NVL((vTotalScore / NULLIF(vTotalMaxGrade, 0)) * 4.0, NULL);
+
+    DBMS_OUTPUT.PUT_LINE('GPA calculated successfully.');
+    
+    RETURN vGPA;
+END caseGBA;
+/
+
+SHOW ERRORS;
+
+
+CREATE OR REPLACE TRIGGER trg_check_student_scored_grade
+BEFORE INSERT OR UPDATE ON grades
+FOR EACH ROW
+DECLARE
+    v_max_grade NUMBER;
+BEGIN
+    SELECT max_grade INTO v_max_grade
+    FROM courses
+    WHERE course_id = :NEW.course_id;
+
+    IF :NEW.student_scored_grade > v_max_grade THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Student Scored Grade cannot exceed Max Grade for the course.');
+    END IF;
+END;
+
+SHOW ERRORS;
+
+
+ALTER TABLE COURSES ADD (
+  PRIMARY KEY
+ (COURSE_ID));
+
+ALTER TABLE DEPARTMENTS ADD (
+  PRIMARY KEY
+ (DEPARTMENT_ID));
+
+ALTER TABLE GRADES ADD (
+  CONSTRAINT PK_GRADE
+ PRIMARY KEY
+ (COURSE_ID, STUDENT_ID, ENROLL_DATE));
+
+ALTER TABLE STUDENTS ADD (
+  PRIMARY KEY
+ (STUDENT_ID));
+
+ALTER TABLE COURSES ADD (
+  CONSTRAINT FK_DEPT_COURSE 
+ FOREIGN KEY (DEPARTMENT_ID) 
+ REFERENCES DEPARTMENTS (DEPARTMENT_ID));
+
+ALTER TABLE GRADES ADD (
+  CONSTRAINT FK_COURSE_GRADE 
+ FOREIGN KEY (COURSE_ID) 
+ REFERENCES COURSES (COURSE_ID),
+  CONSTRAINT FK_STD_GRADE 
+ FOREIGN KEY (STUDENT_ID) 
+ REFERENCES STUDENTS (STUDENT_ID));
+
+ALTER TABLE STUDENTS ADD (
+  CONSTRAINT FK_DEPT_STD1 
+ FOREIGN KEY (DEPARTMENT_ID) 
+ REFERENCES DEPARTMENTS (DEPARTMENT_ID));
+
