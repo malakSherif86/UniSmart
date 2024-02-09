@@ -47,3 +47,24 @@ To explore the project in detail, please refer to the following documents:
 # Feedback and Contributions
 I welcome any feedback or suggestions regarding the project. If you'd like to contribute, please feel free to submit a pull request. Let's learn and grow together!
 
+
+# To use this Java application, follow these steps:
+-Install JDK (Java Development Kit):
+Ensure you have installed any JDK (Java Development Kit) version compatible with the application.
+
+-Set Up Environment Variables:
+Configure your system's environment variables to include the JDK's bin directory in the PATH variable. This step allows your system to recognize Java commands.
+
+-Install NetBeans:
+Download and install NetBeans, an integrated development environment (IDE) suitable for Java development. Ensure it's properly configured.
+
+-Install GitBash:
+GitBash is a command-line interface tool that provides a Unix-like environment on Windows. Install GitBash to facilitate interaction with the Git version control system.
+
+-Clone the Repository using GitBash:
+Utilize GitBash to clone the repository onto your local machine. Use the command git clone <[repository_url](https://github.com/malakSherif86/UniSmart.git)> to download a copy of the project.
+
+-Open the Project in NetBeans:
+Launch NetBeans and navigate to the cloned repository directory. Open the project within NetBeans to access its source code and resources for further development or execution.
+
+By following these steps, you'll be ready to work with the Java application seamlessly
